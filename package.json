@@ -1,0 +1,22 @@
+{
+  "name": "jest-environment-selenium-webdriver",
+  "version": "2.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "description": "Jest environment for using Selenium webdriver in tests.",
+  "keywords": [
+    "selenium",
+    "jest",
+    "headless",
+    "chromedriver"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "chromedriver": "98.0.1",
+    "jest-environment-node": "27.5.1",
+    "selenium-webdriver": "4.1.1"
+  }
+}
