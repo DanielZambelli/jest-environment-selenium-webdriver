@@ -1,7 +1,7 @@
 module.exports = {
   testEnvironmentOptions: {
-    browser: 'chrome',
-    chromeArgs: [
+    browserName: 'chrome',
+    browserArgs: [
         'no-sandbox',
         'headless',
         'disable-gpu',
