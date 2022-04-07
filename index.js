@@ -22,7 +22,6 @@ class SeleniumWebDriverEnvironment extends NodeEnvironment {
     const browser = require(`selenium-webdriver/${this.options.browserName}`)
     const service = new browser.ServiceBuilder().enableVerboseLogging().build()
     const options = new browser.Options()
-    options.setBinaryPath("") //Point to appropriate version
     options.addArguments(this.options.browserArgs)
 
     this.driver = browser.Driver.createSession(options, service)
