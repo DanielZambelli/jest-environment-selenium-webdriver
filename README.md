@@ -11,9 +11,9 @@ npm i jest-environment-selenium-webdriver
 ```
 
 ## Config in Package.json
-``` JSON
+```
 testEnvironmentOptions: {
-  browserName: 'chrome', 
+  browserName: 'chrome',
   browserArgs: [
     'no-sandbox',
     'headless',
