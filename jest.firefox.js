@@ -1,7 +1,7 @@
 module.exports = {
   testEnvironmentOptions: {
-    browserName: 'edge',
-    remoteServer: 'http://localhost:4443/',
+    browserName: 'firefox',
+    remoteServer: 'http://localhost:4442/',
     browserArgs: [
         'no-sandbox',
         'headless',
