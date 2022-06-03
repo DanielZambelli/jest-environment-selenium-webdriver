@@ -1,6 +1,6 @@
 {
   "name": "jest-environment-selenium-webdriver",
-  "version": "4.2.1",
+  "version": "5.0.1",
   "main": "index.js",
   "scripts": {
     "jest:chrome": "jest --config=./jest.chrome.js",
