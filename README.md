@@ -1,5 +1,5 @@
 # Jest Selenium Environment
-Automated testing in Chrome, Edge, Firefox using Jest, Selenium and Docker.
+Automated testing in Chrome, Edge, Firefox using Jest and Selenium.
 
 ## Install
 ```
