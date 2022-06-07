@@ -78,7 +78,7 @@ module.exports = {
 | options | description | values |
 | --- | --- | --- |
 | browserName | targeted browser | chrome, edge or firefox |
-| browserArgs | arguments to configure the browser | (optional) array of strings |
+| browserArgs | (optional) arguments to configure the browser | array of strings |
 | browserBinary | (optional) absolute path to browser exe in case you need to run a specific version | string
 | remoteServer | (optional) path to reach selenium grid server | string e.g. http://localhost:4444
 
