@@ -1,17 +1,11 @@
 {
   "name": "jest-environment-selenium-webdriver",
-  "version": "5.0.1",
+  "version": "6.0.1",
   "main": "index.js",
   "scripts": {
-    "jest:chrome": "jest --config=./jest.chrome.js",
-    "jest:edge": "jest --config=./jest.edge.js",
-    "jest:firefox": "jest --config=./jest.firefox.js",
-    "docker:chrome":"docker run -d -p 4444:4444 -p 7900:7900 --name jsc selenium/standalone-chrome:4.2.1-20220531",
-    "docker:edge":"docker run -d -p 4443:4444 -p 7900:7900 --name jse selenium/standalone-edge:4.2.1-20220531",
-    "docker:firefox":"docker run -d -p 4442:4444 -p 7900:7900 --name jsf selenium/standalone-firefox:4.2.1-20220531",
-    "test:chrome": "npm run docker:chrome && npm run jest:chrome && docker stop jsc && docker rm jsc",
-    "test:edge": "npm run docker:edge && npm run jest:edge && docker stop jse && docker rm jse",
-    "test:firefox": "npm run docker:firefox && npm run jest:firefox && docker stop jsf && docker rm jsf",
+    "test:chrome": "jest --config=./jest.chrome.js",
+    "test:edge": "jest --config=./jest.edge.js",
+    "test:firefox": "jest --config=./jest.firefox.js",
     "test": "npm run test:chrome && npm run test:edge && npm run test:firefox"
   },
   "description": "Jest environment for using Selenium webdriver during tests.",
@@ -24,10 +18,11 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "chromedriver": "100.0.0",
+    "chromedriver": "102.0.0",
     "jest-environment-node": "27.5.1",
     "msedgedriver": "91.0.0",
-    "selenium-webdriver": "4.1.1"
+    "selenium-webdriver": "4.2.0",
+    "geckodriver": "3.0.1"
   },
   "devDependencies": {
     "jest": "27.5.1"

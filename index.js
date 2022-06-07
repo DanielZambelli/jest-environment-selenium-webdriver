@@ -1,6 +1,7 @@
+require('chromedriver')
+require('msedgedriver')
 const NodeEnvironment = require('jest-environment-node')
-const { By, until } = require('selenium-webdriver')
-const webdriver = require('selenium-webdriver')
+const  webdriver = require('selenium-webdriver')
 
 class SeleniumWebDriverEnvironment extends NodeEnvironment{
 
@@ -8,46 +9,82 @@ class SeleniumWebDriverEnvironment extends NodeEnvironment{
     super(config)
     const defaultOptions = {
       browserName: 'chrome',
-      remoteServer: 'http://localhost:4444/',
       browserArgs: [
         'no-sandbox',
         'disable-gpu',
         'headless',
-        '--headless',
         '--ignore-ssl-errors=yes',
         '--ignore-certificate-errors'
       ]
     }
     this.options = {...defaultOptions, ...config.testEnvironmentOptions}
-    if(this.options.browserName === 'edge'){
-      this.options.browserName = 'MicrosoftEdge'
-      this.options.remoteServer = 'http://localhost:4443/'
-    }
     console.log('testing in browser', this.options.browserName)
   }
 
+  getSetOptionsName(){
+    switch(this.options.browserName){
+      case 'edge':
+        return 'setEdgeOptions'
+      case 'chrome':
+        return 'setChromeOptions'
+      case 'firefox':
+        return 'setFirefoxOptions'
+    }
+    throw new Error('could not find setOptionsName for the browser')
+  }
+
+  getSetBinaryPathName(){
+    switch(this.options.browserName){
+      case 'edge':
+        return 'setBinaryPath'
+      case 'chrome':
+        return 'setChromeBinaryPath'
+      case 'firefox':
+        return 'setBinary'
+    }
+    throw new Error('could not find getSetBinaryPathName for the browser')
+  }
+
+  getBrowserName(){
+    switch(this.options.browserName){
+      case 'edge':
+        return 'MicrosoftEdge'
+      default:
+        return this.options.browserName
+    }
+  }
+
   setupDriver(){
+    const browser = require('selenium-webdriver/'+this.options.browserName)
+    const options = new browser.Options()
 
-    let setOptionsName = null
-    if(this.options.browserName === 'MicrosoftEdge') setOptionsName = 'setEdgeOptions'
-    if(this.options.browserName === 'chrome') setOptionsName = 'setChromeOptions'
-    if(this.options.browserName === 'firefox') setOptionsName = 'setFirefoxOptions'
+    if(this.options.browserArgs)
+      options.addArguments(this.options.browserArgs)
 
-    this.driver = new webdriver.Builder()
-      .usingServer(this.options.remoteServer)
-      .withCapabilities({ 'browserName' : this.options.browserName })
-      [setOptionsName](this.options.browserArgs)
-      .build()
+    if(this.options.browserBinary)
+      options[this.getSetBinaryPathName()](this.options.browserBinary)
+
+    if(this.options.remoteServer){
+      this.driver = new webdriver.Builder()
+        .usingServer(this.options.remoteServer)
+        .withCapabilities({ 'browserName' : this.getBrowserName() })
+        [this.getSetOptionsName()](options)
+        .build()
+    }else{
+      this.driver = new webdriver.Builder()
+        .withCapabilities({ 'browserName' : this.getBrowserName() })
+        [this.getSetOptionsName()](options)
+        .build()
+    }
 
     this.global.driver = this.driver
-    this.global.by = By
-    this.global.until = until
+    this.global.by = webdriver.By
+    this.global.until = webdriver.until
     this.global.driver.restart = async () => {
-      //TODO: might need to solve this...
-      //if (this.driver) {
-        //await this.driver.quit()
-        //await this.setupDriver()
-      //}
+      if (this.driver) {
+        await this.driver.quit()
+        await this.setupDriver()
+      }
     }
   }
 
